@@ -1,15 +1,22 @@
 ## READING THE MNIST DATA FROM FILES##
 
 import pickle
+
 # Reading X
 x_train = pickle.load(open ('x_train', 'rb'))
 x1_train = pickle.load(open ('x1_train', 'rb'))
 x2_train = pickle.load(open ('x2_train', 'rb'))
 x3_train = pickle.load(open ('x3_train', 'rb'))
+x4_train = pickle.load(open ('x4_train', 'rb'))
+x5_train = pickle.load(open ('x5_train', 'rb'))
+x6_train = pickle.load(open ('x6_train', 'rb'))
 x_test = pickle.load(open ('x_test', 'rb'))
 x1_test = pickle.load(open ('x1_test', 'rb'))
 x2_test = pickle.load(open ('x2_test', 'rb'))
 x3_test = pickle.load(open ('x3_test', 'rb'))
+x4_test = pickle.load(open ('x4_test', 'rb'))
+x5_test = pickle.load(open ('x5_test', 'rb'))
+x6_test = pickle.load(open ('x6_test', 'rb'))
 
 # Reading y
 y_train = pickle.load(open ('y_train', 'rb'))
@@ -173,6 +180,98 @@ classifier1.fit(X_train, Y_train,
 
 scores = classifier1.evaluate(X_test, Y_test, verbose=1) 
 print("Accuracy: ", scores[1]) #The accuracy: 0.9783
+
+#Train the first instance with the fifth data set while validating with the first data set
+
+(X_train, y_train), (X_test, y_test) = (x4_train, y_train), (x_test, y_test)
+
+X_train = X_train.reshape(num_train, height * width)
+X_test = X_test.reshape(num_test, height * width)
+X_train = X_train.astype('float32') 
+X_test = X_test.astype('float32')
+
+X_train /= 255 # Normalise data to [0, 1] range
+X_test /= 255 # Normalise data to [0, 1] range
+
+Y_train = np_utils.to_categorical(y_train, num_classes) # One-hot encode the labels
+Y_test = np_utils.to_categorical(y_test, num_classes) # One-hot encode the labels
+
+autoencoder1.fit(X_train, X_train,
+      epochs=10,
+      batch_size=128,
+      shuffle=True,
+      validation_data=(X_test, X_test))
+
+classifier1.fit(X_train, Y_train,
+      epochs=10,
+      batch_size=128,
+      shuffle=True,
+      validation_data=(X_test, Y_test))
+
+scores = classifier1.evaluate(X_test, Y_test, verbose=1) 
+print("Accuracy: ", scores[1]) #The accuracy: 0.9705
+
+#Train the first instance with the sixth data set while validating with the first data set
+
+(X_train, y_train), (X_test, y_test) = (x5_train, y_train), (x_test, y_test)
+
+X_train = X_train.reshape(num_train, height * width)
+X_test = X_test.reshape(num_test, height * width)
+X_train = X_train.astype('float32') 
+X_test = X_test.astype('float32')
+
+X_train /= 255 # Normalise data to [0, 1] range
+X_test /= 255 # Normalise data to [0, 1] range
+
+Y_train = np_utils.to_categorical(y_train, num_classes) # One-hot encode the labels
+Y_test = np_utils.to_categorical(y_test, num_classes) # One-hot encode the labels
+
+autoencoder1.fit(X_train, X_train,
+      epochs=10,
+      batch_size=128,
+      shuffle=True,
+      validation_data=(X_test, X_test))
+
+classifier1.fit(X_train, Y_train,
+      epochs=10,
+      batch_size=128,
+      shuffle=True,
+      validation_data=(X_test, Y_test))
+
+scores = classifier1.evaluate(X_test, Y_test, verbose=1) 
+print("Accuracy: ", scores[1]) #The accuracy: 0.9571
+
+#Train the first instance with the seventh data set while validating with the first data set
+
+(X_train, y_train), (X_test, y_test) = (x6_train, y_train), (x_test, y_test)
+
+X_train = X_train.reshape(num_train, height * width)
+X_test = X_test.reshape(num_test, height * width)
+X_train = X_train.astype('float32') 
+X_test = X_test.astype('float32')
+
+X_train /= 255 # Normalise data to [0, 1] range
+X_test /= 255 # Normalise data to [0, 1] range
+
+Y_train = np_utils.to_categorical(y_train, num_classes) # One-hot encode the labels
+Y_test = np_utils.to_categorical(y_test, num_classes) # One-hot encode the labels
+
+autoencoder1.fit(X_train, X_train,
+      epochs=10,
+      batch_size=128,
+      shuffle=True,
+      validation_data=(X_test, X_test))
+
+classifier1.fit(X_train, Y_train,
+      epochs=10,
+      batch_size=128,
+      shuffle=True,
+      validation_data=(X_test, Y_test))
+
+scores = classifier1.evaluate(X_test, Y_test, verbose=1) 
+print("Accuracy: ", scores[1]) #The accuracy: 0.9647
+
+
 
 
 ## READING THE CIFAR-10 DATA FROM FILES##
